@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: VotePanel
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/voting
+    username: myuser
+    password: secret
+  jpa:
+    hibernate:
+      ddl-auto: validate
