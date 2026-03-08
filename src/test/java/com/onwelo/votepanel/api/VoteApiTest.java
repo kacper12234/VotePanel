@@ -49,7 +49,7 @@ class VoteApiTest {
         .when()
                 .post("/vote")
         .then()
-                .statusCode(200);
+                .statusCode(201);
     }
 
     @Test

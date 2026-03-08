@@ -46,7 +46,7 @@ public class VoterApiTest {
         .when()
                 .post("/voter")
         .then()
-                .statusCode(200);
+                .statusCode(201);
 
         given()
         .when()

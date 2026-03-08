@@ -5,6 +5,7 @@ import com.onwelo.votepanel.dto.ElectionResultDto;
 import com.onwelo.votepanel.service.ElectionService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +19,7 @@ public class ElectionController {
     @PostMapping
     public ResponseEntity<Void> addElection(@RequestBody @Valid ElectionDto dto) {
         service.addElection(dto);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping

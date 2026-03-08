@@ -60,7 +60,7 @@ public class ElectionApiTest {
         .when()
                 .post("/election")
         .then()
-                .statusCode(200);
+                .statusCode(201);
 
         given()
                 .when()
