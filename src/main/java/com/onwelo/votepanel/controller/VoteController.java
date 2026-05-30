@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("vote")
+@RequestMapping("api/v1/vote")
 public class VoteController {
 
     private final VoteService service;

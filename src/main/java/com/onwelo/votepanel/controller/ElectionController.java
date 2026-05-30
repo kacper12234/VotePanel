@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("election")
+@RequestMapping("api/v1/election")
 public class ElectionController {
 
     private final ElectionService service;
@@ -22,8 +22,8 @@ public class ElectionController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @GetMapping
-    public ResponseEntity<ElectionResultDto> getElectionResult(@RequestParam long id) {
+    @GetMapping(value = "{id}")
+    public ResponseEntity<ElectionResultDto> getElectionResult(@PathVariable long id) {
         return ResponseEntity.ok(service.getElectionResult(id));
     }
 

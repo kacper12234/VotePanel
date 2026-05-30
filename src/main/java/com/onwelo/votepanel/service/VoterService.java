@@ -8,6 +8,8 @@ import com.onwelo.votepanel.repository.VoterRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.function.Consumer;
+
 @Service
 @RequiredArgsConstructor
 public class VoterService {
@@ -26,19 +28,18 @@ public class VoterService {
     }
 
     public void unlockVoter(long id) {
-        updateVoter(id, false);
+        updateVoter(id, Voter::unlock);
     }
 
     public void blockVoter(long id) {
-        updateVoter(id, true);
+        updateVoter(id, Voter::block);
     }
 
-    private void updateVoter(long id, boolean blocked) {
-        Voter voter = repository.findById(id).orElseThrow(() -> new VoterNotFoundException(id));
-        if (voter.isBlocked() != blocked) {
-            voter.setBlocked(blocked);
-            repository.save(voter);
-        }
+    private void updateVoter(long id, Consumer<Voter> action) {
+        Voter voter = repository.findById(id)
+                .orElseThrow(() -> new VoterNotFoundException(id));
+        action.accept(voter);
+        repository.save(voter);
     }
 
 }

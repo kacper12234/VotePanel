@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("voter")
+@RequestMapping("api/v1/voter")
 public class VoterController {
 
     private final VoterService voterService;
@@ -21,19 +21,19 @@ public class VoterController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @GetMapping
-    public ResponseEntity<VoterDto> findVoter(@RequestParam String personalNumber) {
+    @GetMapping(value = "{personalNumber}")
+    public ResponseEntity<VoterDto> findVoter(@PathVariable String personalNumber) {
         return ResponseEntity.ok(voterService.findVoter(personalNumber));
     }
 
-    @PutMapping("block")
-    public ResponseEntity<Void> blockVoter(@RequestParam long id) {
+    @PutMapping("block/{id}")
+    public ResponseEntity<Void> blockVoter(@PathVariable long id) {
         voterService.blockVoter(id);
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("unblock")
-    public ResponseEntity<Void> unblockVoter(@RequestParam long id) {
+    @PutMapping("unblock/{id}")
+    public ResponseEntity<Void> unblockVoter(@PathVariable long id) {
         voterService.unlockVoter(id);
         return ResponseEntity.ok().build();
     }

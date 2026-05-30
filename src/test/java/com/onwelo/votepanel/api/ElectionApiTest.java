@@ -45,7 +45,7 @@ public class ElectionApiTest {
                 .contentType(ContentType.JSON)
                 .body(new ElectionDto("test election", LocalDate.now(), Collections.emptyList()))
         .when()
-                .post("/election")
+                .post("/api/v1/election")
         .then()
                 .statusCode(400);
     }
@@ -58,13 +58,13 @@ public class ElectionApiTest {
                 .contentType(ContentType.JSON)
                 .body(new ElectionDto("test election", LocalDate.now(), choices))
         .when()
-                .post("/election")
+                .post("/api/v1/election")
         .then()
                 .statusCode(201);
 
         given()
                 .when()
-                .get("/election?id=1")
+                .get("/api/v1/election/1")
                 .then()
                 .statusCode(200)
                 .body("name", Matchers.equalTo("test election"))
@@ -80,7 +80,7 @@ public class ElectionApiTest {
     void shouldReturnNotFoundForUnknownElection() {
         given()
         .when()
-                .get("/election?id=9999")
+                .get("/api/v1/election/9999")
         .then()
                 .statusCode(404);
     }
@@ -92,7 +92,7 @@ public class ElectionApiTest {
     void shouldCountVotes() {
         given()
         .when()
-                .get("/election?id=2")
+                .get("/api/v1/election/2")
         .then()
                 .statusCode(200)
                 .body("name", Matchers.equalTo("General"))

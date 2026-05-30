@@ -18,6 +18,13 @@ public class Voter {
     @Column(name = "personal_number", unique = true)
     private String personalNumber;
     private String address;
-    @Getter
     private boolean blocked;
+
+    public void block() {
+        blocked = true;
+    }
+
+    public void unlock() {
+        blocked = false;
+    }
 }

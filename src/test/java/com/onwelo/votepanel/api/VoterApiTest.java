@@ -44,13 +44,13 @@ public class VoterApiTest {
                         }
                        """)
         .when()
-                .post("/voter")
+                .post("/api/v1/voter")
         .then()
                 .statusCode(201);
 
         given()
         .when()
-                .get("/voter?personalNumber=98081207075")
+                .get("/api/v1/voter/98081207075")
         .then()
                 .statusCode(200)
                 .body("personalNumber", Matchers.equalTo("98081207075"))
@@ -64,7 +64,7 @@ public class VoterApiTest {
     void shouldReturnNotFoundForUnknownVoter() {
         given()
                 .when()
-                .get("/voter?personalNumber=99999999999")
+                .get("/api/v1/voter/99999999999")
         .then()
                 .statusCode(404)
                 .body(containsString("personal number"));
@@ -75,13 +75,13 @@ public class VoterApiTest {
     void shouldBlockVoter() {
         given()
         .when()
-                .put("/voter/block?id=1")
+                .put("/api/v1/voter/block/1")
         .then()
                 .statusCode(200);
 
         given()
         .when()
-                .get("/voter?personalNumber=98081207075")
+                .get("/api/v1/voter/98081207075")
         .then()
                 .statusCode(200)
                 .body("personalNumber", Matchers.equalTo("98081207075"))
@@ -95,13 +95,13 @@ public class VoterApiTest {
     void shouldUnlockVoter() {
         given()
                 .when()
-                .put("/voter/unblock?id=1")
+                .put("/api/v1/voter/unblock/1")
                 .then()
                 .statusCode(200);
 
         given()
         .when()
-                .get("/voter?personalNumber=98081207075")
+                .get("/api/v1/voter/98081207075")
         .then()
                 .statusCode(200)
                 .body("personalNumber", Matchers.equalTo("98081207075"))
@@ -115,7 +115,7 @@ public class VoterApiTest {
     void shouldReturnNotFoundForUnknownVoterUpdate() {
         given()
         .when()
-                .put("/voter/block?id=999")
+                .put("/api/v1/voter/block/999")
         .then()
                 .statusCode(404)
                 .body(containsString("id"));

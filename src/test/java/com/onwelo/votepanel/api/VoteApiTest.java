@@ -47,7 +47,7 @@ class VoteApiTest {
                 .contentType(ContentType.JSON)
                 .body(new VoteDto(1L, 1L, 1L))
         .when()
-                .post("/vote")
+                .post("/api/v1/vote")
         .then()
                 .statusCode(201);
     }
@@ -59,7 +59,7 @@ class VoteApiTest {
                 .contentType(ContentType.JSON)
                 .body(new VoteDto(2L, 1L, 1L))
         .when()
-                .post("/vote")
+                .post("/api/v1/vote")
         .then()
                 .statusCode(403)
                 .body(containsString("already voted"));
@@ -72,7 +72,7 @@ class VoteApiTest {
                 .contentType(ContentType.JSON)
                 .body(new VoteDto(1L, 1L, 2L)) // voter 2 is blocked per migration
         .when()
-                .post("/vote")
+                .post("/api/v1/vote")
         .then()
                 .statusCode(403)
                 .body(containsString("blocked"));
@@ -85,7 +85,7 @@ class VoteApiTest {
                 .contentType(ContentType.JSON)
                 .body(new VoteDto(1L, 1L, 9999L))
         .when()
-                .post("/vote")
+                .post("/api/v1/vote")
         .then()
                 .statusCode(404)
                 .body(containsString("Voter not found"));
@@ -98,7 +98,7 @@ class VoteApiTest {
                 .contentType(ContentType.JSON)
                 .body(new VoteDto(9999L, 1L, 1L))
         .when()
-                .post("/vote")
+                .post("/api/v1/vote")
         .then()
                 .statusCode(404)
                 .body(containsString("Choice not found"));
@@ -111,7 +111,7 @@ class VoteApiTest {
                 .contentType(ContentType.JSON)
                 .body(new VoteDto(1L, 2L, 1L))
         .when()
-                .post("/vote")
+                .post("/api/v1/vote")
         .then()
                 .statusCode(400)
                 .body(containsString("not in election"));
@@ -122,7 +122,7 @@ class VoteApiTest {
     void shouldReturnOneVote() {
         given()
         .when()
-                .get("/election?id=1")
+                .get("/api/v1/election/1")
         .then()
                 .statusCode(200)
                 .body("name", Matchers.equalTo("General"))
